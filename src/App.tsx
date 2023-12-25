@@ -1,9 +1,9 @@
 import React from 'react';
-import { Root } from './Root';
+import { Routing } from './Routing';
 
 const App: React.FC = () => {
   return (
-    <Root />
+    <Routing />
   );
 };
 
