@@ -1,11 +1,8 @@
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
 import App from './App';
-// import { useAppSelector } from '../app/hooks';
 
 export const MuiThemeWrapper: React.FC = () => {
-  // const theme = useAppSelector(state => state.theme);
-
   const theme = createTheme({
     palette: {
       mode: 'dark',
