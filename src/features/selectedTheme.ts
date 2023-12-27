@@ -1,11 +1,13 @@
 /* eslint-disable no-param-reassign */
-import { createTheme } from '@mui/material';
+import { Theme, createTheme } from '@mui/material';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const OSTheme = window
   .matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-const getTheme = (themeType: 'dark' | 'light') => {
+type ThemeMode = 'dark' | 'light';
+
+const getTheme = (themeType: ThemeMode) => {
   return createTheme({
     palette: {
       mode: themeType,
@@ -15,15 +17,15 @@ const getTheme = (themeType: 'dark' | 'light') => {
 
 const themeFromLocalStorage = localStorage.getItem('theme');
 
-const initialState = themeFromLocalStorage
-  ? getTheme(themeFromLocalStorage as 'dark' | 'light')
+const initialState: Theme = themeFromLocalStorage
+  ? getTheme(themeFromLocalStorage as ThemeMode)
   : getTheme(OSTheme);
 
 const selectedThemeSlice = createSlice({
   name: 'selectedTheme',
   initialState,
   reducers: {
-    selectTheme: (_theme, action: PayloadAction<'dark' | 'light'>) => {
+    selectTheme: (_theme, action: PayloadAction<ThemeMode>) => {
       const newTheme = getTheme(action.payload);
 
       return newTheme;
