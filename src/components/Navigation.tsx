@@ -17,6 +17,10 @@ const FlexBox = styled(Box)({
   gap: '10px',
 });
 
+const RelativePositionAppBar = styled(AppBar)({
+  position: 'relative',
+});
+
 export const Navigation: React.FC = () => {
   const theme = useTheme();
 
@@ -27,7 +31,7 @@ export const Navigation: React.FC = () => {
   });
 
   return (
-    <AppBar>
+    <RelativePositionAppBar>
       <Container>
         <Toolbar>
           <FlexBox>
@@ -54,6 +58,6 @@ export const Navigation: React.FC = () => {
           </FlexBox>
         </Toolbar>
       </Container>
-    </AppBar>
+    </RelativePositionAppBar>
   );
 };
