@@ -19,6 +19,7 @@ const FlexBox = styled(Box)({
 
 const RelativePositionAppBar = styled(AppBar)({
   position: 'relative',
+  marginBottom: '30px',
 });
 
 export const Navigation: React.FC = () => {
