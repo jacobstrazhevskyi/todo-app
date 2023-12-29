@@ -56,7 +56,7 @@ export const themes: ThemeObject[] = [
   },
 ];
 
-const getTheme = (themeName: string) => {
+const getTheme = (themeName: string): Theme => {
   const theme = themes.find((foundTheme) => foundTheme.themeName === themeName)
     || { themeName: '', themeObject: createTheme() };
 
