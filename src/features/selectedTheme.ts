@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-import { Theme, createTheme } from '@mui/material';
+import { Theme, ThemeOptions, createTheme } from '@mui/material';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
 const OSTheme = window
@@ -7,26 +7,76 @@ const OSTheme = window
 
 type ThemeMode = 'dark' | 'light';
 
-const getTheme = (themeType: ThemeMode) => {
-  return createTheme({
-    palette: {
-      mode: themeType,
+interface ThemeObjectOptions extends ThemeOptions {
+  mode: ThemeMode,
+}
+
+type ThemeObject = {
+  themeName: string,
+  themeObject: ThemeObjectOptions,
+};
+
+export const themes: ThemeObject[] = [
+  {
+    themeName: 'dark',
+    themeObject: {
+      mode: 'dark',
+      breakpoints: {},
+      components: {},
+      palette: {
+        common: {
+          white: '#ffffff',
+          black: '#000000',
+        },
+        primary: {
+          main: '#373737',
+          light: '#5f5f5f',
+          dark: '#262626',
+        },
+        secondary: {
+          main: '#221266',
+          dark: '#170c47',
+          light: '#4e4184',
+        },
+        background: {
+          default: '#121212',
+          paper: '#121212',
+        },
+        text: {
+          primary: '#ffffff',
+          secondary: '#6b675a',
+          disabled: '#b81d25',
+        },
+      },
+      typography: {
+        fontFamily: 'Roboto, sans-serif',
+        fontSize: 16,
+      },
     },
-  });
+  },
+];
+
+const getTheme = (themeName: string) => {
+  const theme = themes.find((foundTheme) => foundTheme.themeName === themeName)
+    || { themeName: '', themeObject: createTheme() };
+
+  return createTheme(theme.themeObject);
 };
 
 const themeFromLocalStorage = localStorage.getItem('theme');
 
 const initialState: Theme = themeFromLocalStorage
-  ? getTheme(themeFromLocalStorage as ThemeMode)
+  ? getTheme(themeFromLocalStorage)
   : getTheme(OSTheme);
 
 const selectedThemeSlice = createSlice({
   name: 'selectedTheme',
   initialState,
   reducers: {
-    selectTheme: (_theme, action: PayloadAction<ThemeMode>) => {
+    selectTheme: (_theme, action: PayloadAction<string>) => {
       const newTheme = getTheme(action.payload);
+
+      localStorage.setItem('theme', action.payload);
 
       return newTheme;
     },
