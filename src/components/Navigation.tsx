@@ -5,12 +5,16 @@ import {
   Box,
   Button,
   Container,
+  MenuItem,
+  Select,
   Toolbar,
   styled,
   useTheme,
 } from '@mui/material';
 
 import { NavLink } from 'react-router-dom';
+import { useAppDispatch } from '../app/hooks';
+import { selectTheme, themes } from '../features/selectedTheme';
 
 const FlexBox = styled(Box)({
   display: 'flex',
@@ -22,6 +26,11 @@ const RelativePositionAppBar = styled(AppBar)({
   marginBottom: '30px',
 });
 
+const NavigationToolbar = styled(Toolbar)({
+  display: 'flex',
+  gap: 30,
+});
+
 export const Navigation: React.FC = () => {
   const theme = useTheme();
 
@@ -31,10 +40,12 @@ export const Navigation: React.FC = () => {
     },
   });
 
+  const dispatch = useAppDispatch();
+
   return (
     <RelativePositionAppBar>
       <Container>
-        <Toolbar>
+        <NavigationToolbar>
           <FlexBox>
             <NavLink to="/home">
               {({ isActive }) => (
@@ -57,7 +68,25 @@ export const Navigation: React.FC = () => {
               )}
             </NavLink>
           </FlexBox>
-        </Toolbar>
+          <Box>
+            <Select
+              autoWidth
+              defaultValue={localStorage.getItem('theme')}
+              onChange={(event) => {
+                dispatch(selectTheme(event.target.value as string));
+              }}
+              variant="standard"
+            >
+              {themes.map((themeFromStorage) => (
+                <MenuItem
+                  value={themeFromStorage.themeName}
+                >
+                  {themeFromStorage.themeName}
+                </MenuItem>
+              ))}
+            </Select>
+          </Box>
+        </NavigationToolbar>
       </Container>
     </RelativePositionAppBar>
   );
