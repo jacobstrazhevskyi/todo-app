@@ -5,25 +5,17 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 const OSTheme = window
   .matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-type ThemeMode = 'dark' | 'light';
-
-interface ThemeObjectOptions extends ThemeOptions {
-  mode: ThemeMode,
-}
-
 type ThemeObject = {
   themeName: string,
-  themeObject: ThemeObjectOptions,
+  themeObject: ThemeOptions,
 };
 
 export const themes: ThemeObject[] = [
   {
     themeName: 'dark',
     themeObject: {
-      mode: 'dark',
-      breakpoints: {},
-      components: {},
       palette: {
+        mode: 'dark',
         common: {
           white: '#ffffff',
           black: '#000000',
@@ -53,6 +45,10 @@ export const themes: ThemeObject[] = [
         fontSize: 16,
       },
     },
+  },
+  {
+    themeName: 'light',
+    themeObject: createTheme(),
   },
 ];
 
