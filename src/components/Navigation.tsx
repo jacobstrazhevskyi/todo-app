@@ -12,9 +12,12 @@ import {
   useTheme,
 } from '@mui/material';
 
+import uuid from 'react-uuid';
+
 import { NavLink } from 'react-router-dom';
 import { useAppDispatch } from '../app/hooks';
-import { selectTheme, themes } from '../features/selectedTheme';
+import { selectTheme } from '../features/selectedTheme';
+import { themes } from '../utils/themes';
 
 const FlexBox = styled(Box)({
   display: 'flex',
@@ -80,6 +83,7 @@ export const Navigation: React.FC = () => {
               {themes.map((themeFromStorage) => (
                 <MenuItem
                   value={themeFromStorage.themeName}
+                  key={uuid()}
                 >
                   {themeFromStorage.themeName}
                 </MenuItem>
