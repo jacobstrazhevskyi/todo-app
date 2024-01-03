@@ -5,6 +5,8 @@ import { themes } from '../utils/themes';
 const OSTheme = window
   .matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
+localStorage.setItem('OSTheme', OSTheme);
+
 const getTheme = (themeName: string): Theme => {
   const theme = themes.find((foundTheme) => foundTheme.themeName === themeName)
     || { themeName: '', themeObject: createTheme() };
