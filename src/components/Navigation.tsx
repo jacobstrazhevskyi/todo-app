@@ -34,6 +34,17 @@ const NavigationToolbar = styled(Toolbar)({
   gap: 30,
 });
 
+const getMenuItemText = (selectedThemeName: string) => {
+  const themeNameSplited = selectedThemeName.split(/(?<![A-Z])(?=[A-Z])/);
+
+  themeNameSplited.filter(word => word.toLowerCase() !== 'theme');
+  const joinedThemeName = themeNameSplited.join(' ');
+  const resultThemeName = joinedThemeName[0]
+    .toUpperCase() + joinedThemeName.slice(1);
+
+  return `${resultThemeName} theme`;
+};
+
 export const Navigation: React.FC = () => {
   const theme = useTheme();
 
@@ -74,7 +85,9 @@ export const Navigation: React.FC = () => {
           <Box>
             <Select
               autoWidth
-              defaultValue={localStorage.getItem('theme')}
+              defaultValue={
+                localStorage.getItem('theme') || localStorage.getItem('OSTheme')
+              }
               onChange={(event) => {
                 dispatch(selectTheme(event.target.value as string));
               }}
@@ -85,7 +98,7 @@ export const Navigation: React.FC = () => {
                   value={themeFromStorage.themeName}
                   key={uuid()}
                 >
-                  {themeFromStorage.themeName}
+                  {getMenuItemText(themeFromStorage.themeName)}
                 </MenuItem>
               ))}
             </Select>
