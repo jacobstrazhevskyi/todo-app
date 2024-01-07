@@ -1,11 +1,13 @@
+import React from 'react';
+
 import {
   Container,
   Paper,
-  Typography,
   styled,
   useTheme,
 } from '@mui/material';
-import React from 'react';
+
+import { TodosListTable } from './TodosListTable';
 
 export const HomePage: React.FC = () => {
   const theme = useTheme();
@@ -20,9 +22,7 @@ export const HomePage: React.FC = () => {
   return (
     <Container>
       <BoxStyledPaper elevation={5}>
-        <Typography>
-          HOME PAGE PAGE HOME HOME HOME PAGE HOME PAGE HOME
-        </Typography>
+        <TodosListTable />
       </BoxStyledPaper>
     </Container>
   );
